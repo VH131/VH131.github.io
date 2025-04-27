@@ -5,9 +5,9 @@
   <meta charset="utf-8" />
   <title>Volodymyr Husar CV</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;1,300&display=swap"
+    rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;1,300&display=swap');
-
     :root {
       --main-color: #003366;
       --text-color: black;
@@ -24,6 +24,12 @@
       padding: 0;
     }
 
+    header,
+    footer {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
     .cv-container {
       display: flex;
       flex-direction: row;
@@ -33,12 +39,12 @@
       gap: 20px;
     }
 
-    .column-left-column {
+    .left-column {
       flex: 0 0 290px;
       width: 290px;
     }
 
-    .column-right-column {
+    .right-column {
       flex: 1;
     }
 
@@ -47,8 +53,8 @@
         flex-direction: column;
       }
 
-      .column-left-column,
-      .column-right-column {
+      .left-column,
+      .right-column {
         width: 100%;
       }
     }
@@ -112,7 +118,7 @@
     .section-img img {
       width: 100%;
       height: auto;
-      border-radius: 10px;
+      border-radius: 30px;
     }
 
     .section-img h1 {
@@ -122,8 +128,11 @@
 </head>
 
 <body>
+  <header>
+    <h1>Volodymyr Husar CV</h1>
+  </header>
   <div class="cv-container">
-    <div class="column-left-column">
+    <aside class="left-column">
       <section class="section-img">
         <img src="Panda.jpg" alt="Volodymyr Husar's face" />
         <h1>Volodymyr Husar</h1>
@@ -157,16 +166,19 @@
           </li>
         </ul>
       </section>
-    </div>
+    </aside>
 
-    <div class="column-right-column">
+    <main class="right-column">
       <section class="section-summary">
         <h2>Summary:</h2>
         <p>
-          A dedicated and detail-oriented QA Engineer with over 5 years of experience in software testing and quality
-          assurance. Skilled in analyzing requirements, creating comprehensive test cases, and executing various types
+          A dedicated and detail-oriented QA Engineer with over 5 years of experience in software testing and
+          quality
+          assurance. Skilled in analyzing requirements, creating comprehensive test cases, and executing various
+          types
           of
-          tests to ensure software reliability and performance. Proven ability to work in fast-paced environments and
+          tests to ensure software reliability and performance. Proven ability to work in fast-paced environments
+          and
           collaborate effectively with development teams to identify and resolve defects. Committed to continuous
           learning and
           staying current with the latest testing tools and methodologies.
@@ -200,8 +212,11 @@
           </li>
           </ol>
       </section>
-    </div>
+    </main>
   </div>
+  <footer>
+    <p>© 2025 Volodymyr Husar</p>
+  </footer>
 </body>
 
 </html>
