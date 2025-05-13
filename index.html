@@ -5,8 +5,7 @@
   <meta charset="utf-8" />
   <title>Volodymyr Husar CV</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;1,300&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;1,300" rel="stylesheet" />
   <style>
     :root {
       --main-color: #003366;
@@ -31,26 +30,17 @@
     }
 
     .cv-container {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: 290px 1fr;
       max-width: 1000px;
       margin: 0 auto;
       padding: var(--section-padding);
       gap: 20px;
     }
 
-    .left-column {
-      flex: 0 0 290px;
-      width: 290px;
-    }
-
-    .right-column {
-      flex: 1;
-    }
-
     @media (max-width: 768px) {
       .cv-container {
-        flex-direction: column;
+        grid-template-columns: 1fr;
       }
 
       .left-column,
@@ -210,7 +200,7 @@
               <li>Test execution (smoke, regression)</li>
             </ul>
           </li>
-          </ol>
+        </ul>
       </section>
     </main>
   </div>
