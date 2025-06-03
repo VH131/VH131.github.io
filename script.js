@@ -206,6 +206,27 @@ const config = {
   function renderFooter(footerEl, footerConfig) {
     footerEl.innerHTML = `<p>© ${footerConfig.copyYear} ${footerConfig.author}</p>`;
   }
+
+//Theme Switch
+
+  let themeSwitch;
+
+//Set theme
+  function setTheme(themeName) {
+    localStorage.setItem('theme', themeName);
+    document.body.className =themeName;
+    if(themeSwitch) {
+      themeSwitch.checked = themeName === 'dark-theme';
+    }
+  }
+//Toggle theme
+  function toggleTheme() {
+    if(localStorage.getItem('theme') ==='dark-theme') {
+      setTheme('light-theme');
+    } else {
+      setTheme('dark-theme');
+    }
+  }
   //Whole CV rendering based on config
   function renderCV(config) {
     const headerEl = document.querySelector('header');
@@ -218,7 +239,25 @@ const config = {
     renderMain(mainEl, config.main);
     renderFooter(footerEl, config.footer);
   }
+
   //When DOM has loaded rendering      
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+
+  themeSwitch = document.getElementById('checkbox');
+  if (themeSwitch) {
+    themeSwitch.addEventListener('change',toggleTheme);
+  }
+  // Check localStorage for saved theme first
+  const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else if (window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches) 
+        {
+          setTheme('dark-theme');
+        } else {
+          setTheme('light-theme')
+        }
+  //render CV after theme is applied
     renderCV(config);
   });
