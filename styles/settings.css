@@ -1,0 +1,114 @@
+/* --- Settings Button Styles --- */
+.settings-button {
+  position: fixed; /* Keep fixed for consistent access */
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto; /* Explicitly enables clicks on the button, overriding parent's pointer-events: none */
+}
+
+.settings-button .icon-gear {
+  width: 100%;
+  height: 100%;
+  fill: var(--main-color);
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.settings-button:hover .icon-gear {
+  transform: rotate(30deg);
+}
+
+/* --- Settings Menu Styles --- */
+.settings-menu {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 250px;
+  height: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transition: left 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 1000;
+}
+
+body.sidebar-open .settings-menu {
+  left: 0;
+}
+
+.settings-menu h2 {
+  color: var(--main-color);
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  width: 100%;
+  text-align: center;
+}
+
+.settings-section {
+  width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-section h3 {
+  color: var(--main-color);
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+/* Close button for settings menu */
+.close-sidebar-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: var(--main-color);
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+}
+
+/* --- Overlay Styles --- */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* Ensure it's below the settings menu but above other content */
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+body.sidebar-open .sidebar-overlay {
+  display: block;
+  opacity: 1;
+}
+
+body.sidebar-open {
+  overflow: hidden;
+}

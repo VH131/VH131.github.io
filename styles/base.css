@@ -1,0 +1,74 @@
+:root {
+  /* Light Theme Defaults */
+  --bg-color: #ffffff; /* Background color */
+  --text-color: #000000; /* Main text color */
+  --main-color: #003366; /* Main accent color (headings, borders) */
+  --section-padding: 20px;
+  --section-margin: 20px;
+  --border-radius: 50px;
+  --border-color: var(--main-color); /* Use main-color for border */
+  --heading-font: "Roboto", sans-serif;
+
+  /* Theme Toggle Icon Colors */
+  --icon-color: #000000; /* Default icon color */
+  --toggle-bg: #e0e0e0; /* Background of the toggle button */
+  --toggle-shadow: #c5c5c5; /* Shadow for pressed state */
+}
+
+body {
+  font-family: var(--heading-font);
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color); /* Use CSS variable */
+  color: var(--text-color); /* Use CSS variable */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+h1,
+h2,
+h3 {
+  color: var(--main-color); /* Use CSS variable */
+  margin: 10px 0;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+p {
+  color: var(--text-color); /* Use CSS variable */
+  margin: 0 0 10px;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+ol {
+  list-style: decimal;
+}
+
+li {
+  margin: 10px 0;
+  padding: 5px 0;
+}
+
+a {
+  color: var(--text-color); /* Default link color */
+  text-decoration: underline;
+  text-decoration-thickness: 5%;
+}
+
+a:hover {
+  color: var(--main-color); /* Link hover color */
+}
