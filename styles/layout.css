@@ -3,8 +3,6 @@ footer {
   text-align: center;
   margin-bottom: 20px;
   color: var(--main-color);
-  position: relative; /* Useful for stacking context if other children were positioned */
-  pointer-events: none;
 }
 
 .cv-container {

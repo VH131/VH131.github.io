@@ -13,7 +13,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  pointer-events: auto; /* Explicitly enables clicks on the button, overriding parent's pointer-events: none */
 }
 
 .settings-button .icon-gear {
