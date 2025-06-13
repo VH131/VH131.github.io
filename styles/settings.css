@@ -1,0 +1,119 @@
+/* --- Settings Button Styles --- */
+.settings-button {
+  position: fixed; /* Keep fixed for consistent access */
+  top: 10px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings-button .icon-gear {
+  width: 100%;
+  height: 100%;
+  fill: var(--main-color);
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.settings-button:hover .icon-gear {
+  transform: rotate(30deg);
+}
+
+/* --- Settings Menu Styles --- */
+.settings-menu {
+  position: fixed;
+  top: 0;
+  left: -280px; /* This hides the menu off-screen initially */
+  width: 250px;
+  height: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transition: left 0.3s ease-out;
+  display: flex;
+  flex-direction: column; /* Main content of sidebar stacks vertically */
+  align-items: flex-start;
+}
+
+body.sidebar-open .settings-menu {
+  left: 0; /* This moves the menu into view when 'sidebar-open' class is added to body */
+}
+
+/* Styles for the settings menu header */
+.settings-menu-header {
+  display: flex;
+  justify-content: space-between; /* Puts title and button at opposite ends */
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px; /* Space between header and content */
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color); /* Separator line */
+}
+
+.settings-menu-header h2 {
+  color: var(--main-color);
+  margin: 0; /* Remove default h2 margin as flex handles spacing */
+  font-size: 1.8em;
+  text-align: left; /* Align text within its flex item */
+}
+
+/* Close button for settings menu - now within flex container */
+.close-sidebar-button {
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: var(--main-color);
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  /* Remove absolute positioning as flexbox manages its position */
+  position: static;
+}
+
+.settings-section {
+  width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-section h3 {
+  color: var(--main-color);
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+/* --- Overlay Styles --- */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; /* Hidden by default */
+  opacity: 0; /* Initial opacity for transition */
+  transition: opacity 0.3s ease-out;
+}
+
+body.sidebar-open .sidebar-overlay {
+  display: block; /* Shown when 'sidebar-open' class is added to body */
+  opacity: 1; /* Fade in */
+}
+
+/* Ensure content is not scrollable when settings menu is open */
+body.sidebar-open {
+  overflow: hidden;
+}
