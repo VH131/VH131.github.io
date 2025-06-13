@@ -34,7 +34,7 @@ function closeSettingsMenu() {
 }
 
 // When DOM has loaded, initialize everything
-document.addEventListener("DOMContentLoaded", () => {
+function initializeSettingsAndTheme() {
   // Get elements
   themeSwitch = document.getElementById("checkbox");
   settingsButton = document.querySelector(".settings-button");
@@ -71,7 +71,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sidebarOverlay) {
     sidebarOverlay.addEventListener("click", closeSettingsMenu);
   }
-
-  // Render the CV content after all settings and theme are initialized
-  renderCV();
-});
+}
