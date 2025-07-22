@@ -1,0 +1,87 @@
+.sun-cycle-widget-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: column;
+  justify-self: flex-end;
+  gap: 5px;
+  padding: 8px 12px;
+  background-color: var(--bg-color);
+  border-radius: 8 px;
+  font-family: var(--heading-font);
+  font-size: 0.9em;
+  color: var(--main-color);
+  min-width: 120px;
+  box-sizing: border-box;
+  text-align: right;
+}
+/* Styles for the sun cycle info display */
+.sun-cycle-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.sun-cycle-info p {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sun-cycle-info .label {
+  font-weight: normal;
+  color: var(--secondary-text-color, #555);
+  font-size: 0.85em;
+}
+.sun-cycle-info .value {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+/* Styles for the loader spinner */
+.sun-cycle-loader-spinner {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top: 3px solid var(--primary-color, #3498db);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Styles for the error message */
+.sun-cycle-error {
+  color: var(--error-color, #e74c3c);
+  font-size: 0.8em;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Class to hide elements */
+.hidden {
+  display: none !important;
+}
+
+/* Small screen adoption */
+@media (max-width: 768px) {
+  .sun-cycle-widget-container {
+    right: 10px;
+    min-width: unset;
+    font-size: 0.8em;
+    padding: 6px 10px;
+  }
+}
