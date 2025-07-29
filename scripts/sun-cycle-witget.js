@@ -1,6 +1,7 @@
 //Lviv default coordinates
 const DEFAULT_LAT = 49.842957;
 const DEFAULT_LON = 24.03111;
+const DEFAULT_LOCATION_DATA = { lat: DEFAULT_LAT, lon: DEFAULT_LON };
 
 // Get DOM elements
 const sunCycleLoader = document.getElementById("sunCycleLoader");
@@ -35,8 +36,7 @@ function showSunCycleError(message) {
 //Function for rendering sunrise/sunset data
 function renderSunriseSunset(data) {
   if (!data || !data.results) {
-    showSunCycleError("Incorrect data.");
-    return;
+    throw new Error("Incorrect data format received for rendering.");
   }
 
   const { sunrise, sunset, day_length } = data.results;
@@ -58,57 +58,56 @@ function renderSunriseSunset(data) {
     `;
   showSunCycleInfo();
 }
-
-// Function to retrieve sunrise/sunset data from API
-async function fetchSunriseSunsetData(lat, lon) {
+// Create promise function to resolve geolocation
+async function getUserGeolocationData() {
+  return new Promise((resolve) => {
+    if (navigator.geolocation) {
+      const onError = (error) => {
+        console.warn("Geolocation error:", error);
+        resolve(undefined);
+      };
+      const onSuccess = (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        resolve({ lat, lon });
+      };
+      // Get current user position.
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    } else {
+      console.warn("Browser does not support Geolocation API.");
+    }
+  });
+}
+// Widget initialization function
+async function initSunCycleWidget() {
   showSunCycleLoader();
   try {
-    const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&formatted=0`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`Error HTTP: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    if (data.status !== "OK") {
-      throw new Error(`Error API: ${data.status}`);
-    }
-
+    const userLocationData = await getUserGeolocationData();
+    const resovedLocationData = userLocationData || DEFAULT_LOCATION_DATA;
+    const data = await fetchSunriseSunsetData(resovedLocationData);
     renderSunriseSunset(data);
   } catch (error) {
-    console.error("Sunrise/sunset data download error:", error);
+    console.error("Failed to load or render sunrise/sunset data:", error);
     showSunCycleError(`Error: ${error.message}`);
   } finally {
     hideSunCycleLoader();
   }
 }
+// Function to retrieve sunrise/sunset data from API
+async function fetchSunriseSunsetData(lat, lon) {
+  const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&formatted=0`;
+  const response = await fetch(url);
 
-// Get current user geolocation function
-function initSunCycleWidget() {
-  showSunCycleLoader();
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        fetchSunriseSunsetData(lat, lon);
-      },
-      (error) => {
-        console.warn(
-          "Geolocation is not available. Use default values:",
-          error
-        );
-        showSunCycleError("Geolocation is not available");
-        fetchSunriseSunsetData(DEFAULT_LAT, DEFAULT_LON);
-      }
-    );
-  } else {
-    console.warn("Browser is not support");
-    showSunCycleError("Geolocation is not available");
-    fetchSunriseSunsetData(DEFAULT_LAT, DEFAULT_LON);
+  if (!response.ok) {
+    throw new Error(`Error HTTP: ${response.status}`);
   }
+
+  const data = await response.json();
+
+  if (data.status !== "OK") {
+    throw new Error(`Error API: ${data.status} - ${data.status_code} || ''`);
+  }
+  return data;
 }
 
 // Widget initialization in DOM

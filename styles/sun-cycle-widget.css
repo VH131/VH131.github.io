@@ -8,7 +8,7 @@
   gap: 5px;
   padding: 8px 12px;
   background-color: var(--bg-color);
-  border-radius: 8 px;
+  border-radius: 8px;
   font-family: var(--heading-font);
   font-size: 0.9em;
   color: var(--main-color);
@@ -43,7 +43,7 @@
 /* Styles for the loader spinner */
 .sun-cycle-loader-spinner {
   border: 3px solid rgba(0, 0, 0, 0.1);
-  border-top: 3px solid var(--primary-color, #3498db);
+  border-top: 3px solid var(--main-color, #34dbdb);
   border-radius: 50%;
   width: 20px;
   height: 20px;
