@@ -79,7 +79,7 @@ async function getUserGeolocationData() {
   });
 }
 // Widget initialization function
-async function initSunCycleWidget() {
+export async function initSunCycleWidget() {
   showSunCycleLoader();
   try {
     const userLocationData = await getUserGeolocationData();
@@ -109,6 +109,3 @@ async function fetchSunriseSunsetData(lat, lon) {
   }
   return data;
 }
-
-// Widget initialization in DOM
-document.addEventListener("DOMContentLoaded", initSunCycleWidget);
