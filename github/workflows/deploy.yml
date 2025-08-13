@@ -1,0 +1,58 @@
+# This is a GitHub Actions workflow for automatically deploying a website to GitHub Pages.
+name: Deploy to GitHub Pages
+
+# The workflow will be triggered every time you push to the branch.
+on:
+  push:
+    branches:
+      - '*'
+
+# The workflow consists of a single job: build_and_deploy.
+jobs:
+  build_and_deploy:
+    # The job will run on an Ubuntu virtual machine.
+    runs-on: ubuntu-latest
+
+    # The steps to be executed.
+    steps:
+      # 1. Checkout the repository code.
+      # This step is mandatory to access the project files.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js.
+      # This is necessary if your project requires dependency installation or building.
+      # We assume you have a package.json file with a "build" script.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Install dependencies using Yarn.
+      - name: Install dependencies
+        run: yarn install
+
+      # 4. Run the build script using Yarn.
+      # This step executes the build command, which usually creates a 'dist' or 'build' folder.
+      # If your script has a different name, change it here.
+      - name: Build project
+        run: yarn build
+
+      # 5. Configure GitHub Pages.
+      # This step configures the environment for publishing to GitHub Pages.
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      # 6. Upload the artifact for publishing.
+      # We upload the content of the 'dist' folder, as this is the standard name for
+      # a built project. If you have a different folder name, change it.
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './dist'
+
+      # 7. Deploy to GitHub Pages.
+      # This step publishes the uploaded artifact.
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
