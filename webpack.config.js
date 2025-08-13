@@ -7,7 +7,7 @@ module.exports = (env, argv) => {
 
   return {
     // Use the mode passed from the command line ('development' or 'production').
-    mode: argv.mode,
+    mode: argv.mode || "development",
 
     // Specifies which webpack file the project should start collecting from
     entry: "./scripts/main.js",

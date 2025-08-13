@@ -1,15 +1,25 @@
 # This is a GitHub Actions workflow for automatically deploying a website to GitHub Pages.
 name: Deploy to GitHub Pages
 
-# The workflow will be triggered every time you push to the branch.
+# The workflow will be triggered every time you push to any branch
+# or when a pull request is opened or updated targeting the main branch.
 on:
   push:
+    # This will trigger the workflow for all branches to run the build and checks.
+    branches:
+      - '*'
+  # We also trigger on pull requests to run the build and checks.
+  pull_request:
+    # This will trigger the workflow for all pull requests targeting the main branch.
     branches:
       - '*'
 
 # The workflow consists of a single job: build_and_deploy.
 jobs:
   build_and_deploy:
+    # The job will only run if the event is a push to the main branch
+    # or if the workflow is triggered by a Pull Request.
+    # This ensures deployment only happens from the main branch.
     # The job will run on an Ubuntu virtual machine.
     runs-on: ubuntu-latest
 
@@ -38,14 +48,11 @@ jobs:
       - name: Build project
         run: yarn build
 
-      # 5. Configure GitHub Pages.
-      # This step configures the environment for publishing to GitHub Pages.
+      # The following steps for deployment will only run if the event is a push to the main branch.
+      # This prevents deployment from other branches or pull requests.
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v4
 
-      # 6. Upload the artifact for publishing.
-      # We upload the content of the 'dist' folder, as this is the standard name for
-      # a built project. If you have a different folder name, change it.
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
