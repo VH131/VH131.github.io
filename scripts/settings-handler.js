@@ -34,7 +34,7 @@ function closeSettingsMenu() {
 }
 
 // When DOM has loaded, initialize everything
-function initializeSettingsAndTheme() {
+export function initializeSettingsAndTheme() {
   // Get elements
   themeSwitch = document.getElementById("checkbox");
   settingsButton = document.querySelector(".settings-button");
