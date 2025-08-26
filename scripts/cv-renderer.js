@@ -1,4 +1,7 @@
-//Personal info rendering
+// This file handles rendering the CV content
+import { cvConfig } from "./cv-config.js";
+
+// Personal info rendering
 function renderPersonalInfoSection(parentElement, sectionConfig) {
   const { data } = sectionConfig;
   const sectionEl = document.createElement("section");
@@ -111,19 +114,18 @@ function renderMain(mainEl, mainConfig) {
 }
 //Footer rendering
 function renderFooter(footerEl, footerConfig) {
-  footerEl.innerHTML = `<p>© ${footerConfig.copyYear} ${config.footer.author}</p>`;
+  footerEl.innerHTML = `<p>© ${footerConfig.copyYear} ${footerConfig.author}</p>`;
 }
 
 //Whole CV rendering based on config
-function renderCV() {
-  // Export this function
+export function renderCV() {
   const headerEl = document.querySelector("header");
   const asideEl = document.querySelector(".left-column");
   const mainEl = document.querySelector(".right-column");
   const footerEl = document.querySelector("footer");
 
-  renderHeader(headerEl, config.header);
-  renderAside(asideEl, config.aside);
-  renderMain(mainEl, config.main);
-  renderFooter(footerEl, config.footer);
+  renderHeader(headerEl, cvConfig.header);
+  renderAside(asideEl, cvConfig.aside);
+  renderMain(mainEl, cvConfig.main);
+  renderFooter(footerEl, cvConfig.footer);
 }

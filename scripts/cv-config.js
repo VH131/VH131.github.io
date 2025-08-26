@@ -1,5 +1,8 @@
+// Імпортуємо файл зображення з тієї ж директорії
+import pandaImage from "../images/Panda.jpg";
+
 // CV data configuration
-window.config = {
+export const cvConfig = {
   header: {
     title: "Volodymyr Husar CV",
     fullName: "Volodymyr Husar",
@@ -15,7 +18,8 @@ window.config = {
         data: {
           fullName: "Volodymyr Husar",
           title: "QA Engineer",
-          imgSrc: "./images/Panda.jpg",
+          // Використовуємо URL, отриманий після імпорту зображення
+          imgSrc: pandaImage,
           imgAlt: "Volodymyr Husar's face",
         },
       },
