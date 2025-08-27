@@ -7,12 +7,12 @@ import "../styles/settings.css";
 import "../styles/sun-cycle-widget.css";
 
 // Import necessary modules and functions from the same directory
-import { renderCV } from "./cv-renderer.js";
-import { initializeSettingsAndTheme } from "./settings-handler.js";
-import { initSunCycleWidget } from "./sun-cycle-widget.js";
+import { renderCV } from "../scripts/cv-renderer.js";
+import { initializeSettingsAndTheme } from "../scripts/settings-handler.js";
+import { initSunCycleWidget } from "../scripts/sun-cycle-widget.js";
 
 // The function to initialize all event listeners and rendering
-function initApp() {
+function initApp(): void {
   try {
     // Call the function to initialize settings and theme
     initializeSettingsAndTheme();
@@ -22,7 +22,7 @@ function initApp() {
 
     // Call the function to update the sun position
     initSunCycleWidget();
-  } catch (error) {
+  } catch (error: unknown) {
     // Log any errors to the console to help with debugging
     console.error(
       "An error occurred during application initialization:",
