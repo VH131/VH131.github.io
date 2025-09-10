@@ -1,8 +1,31 @@
 // Імпортуємо файл зображення з тієї ж директорії
 import pandaImage from "../images/Panda.jpg";
 
+//Type definitions
+interface CVSection {
+  type: string;
+  data: any;
+  name?: string;
+}
+
+interface CVConfig {
+  header: {
+    title: string;
+    fullName: string;
+  };
+  footer: {
+    copyYear: string;
+    author: string;
+  };
+  aside: {
+    sections: CVSection[];
+  };
+  main: {
+    sections: CVSection[];
+  };
+}
 // CV data configuration
-export const cvConfig = {
+export const cvConfig: CVConfig = {
   header: {
     title: "Volodymyr Husar CV",
     fullName: "Volodymyr Husar",
@@ -18,7 +41,6 @@ export const cvConfig = {
         data: {
           fullName: "Volodymyr Husar",
           title: "QA Engineer",
-          // Використовуємо URL, отриманий після імпорту зображення
           imgSrc: pandaImage,
           imgAlt: "Volodymyr Husar's face",
         },

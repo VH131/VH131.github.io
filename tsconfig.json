@@ -1,14 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es5", // Компільований JavaScript буде сумісним з ES5
-    "module": "esnext", // Використовувати модулі ES6
-    "jsx": "react", // Якщо ви використовуєте JSX
-    "allowJs": true, // Дозволяє компілятору обробляти файли .js
-    "outDir": "./dist", // Каталог для компільованих файлів
-    "strict": true, // Увімкнути строгу перевірку типів
-    "esModuleInterop": true, // Дозволяє використовувати ES-модулі з CommonJS
-    "skipLibCheck": true // Пропускає перевірку файлів оголошень (d.ts)
+    "target": "ES2020", // JS output; better for browsers and tools than ES5
+    "module": "ESNext", // 'ESNext' for bundlers (Webpack/Vite)
+    "jsx": "react-jsx", // For React 17+/Vite
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src", // Optional: clarifies input src root
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node", // module finding (helps with asset/module resolution)
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true, // Allows to import JSON files
+    "noImplicitAny": true, // Catch more potential bugs
+    "allowSyntheticDefaultImports": true, // Asset and default import compatibility
+    "sourceMap": true, // Source maps for better debugging
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "global.d.ts", // global asset/module declarations
+    "*.d.ts" // Catches any custom type declaration files
+  ],
   "exclude": ["node_modules", "dist"]
 }

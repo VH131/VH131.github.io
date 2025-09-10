@@ -1,12 +1,11 @@
 // This file handles the settings menu and theme switching logic
-let themeSwitch;
-let settingsButton;
-let settingsMenu;
-let closeSidebarButton;
-let sidebarOverlay;
+let themeSwitch: HTMLInputElement | null;
+let settingsButton: HTMLButtonElement | null;
+let closeSidebarButton: HTMLElement | null;
+let sidebarOverlay: HTMLElement | null;
 
 // Function to set the theme
-function setTheme(themeName) {
+function setTheme(themeName: string): void {
   localStorage.setItem("theme", themeName); // Save theme to localStorage
   document.body.className = themeName; // Apply the theme class to the body
   if (themeSwitch) {
@@ -15,7 +14,7 @@ function setTheme(themeName) {
 }
 
 // Function to toggle theme
-function toggleTheme() {
+function toggleTheme(): void {
   if (localStorage.getItem("theme") === "dark-theme") {
     setTheme("light-theme");
   } else {
@@ -24,21 +23,20 @@ function toggleTheme() {
 }
 
 // Function to open the settings menu
-function openSettingsMenu() {
+function openSettingsMenu(): void {
   document.body.classList.add("sidebar-open");
 }
 
 // Function to close the settings menu
-function closeSettingsMenu() {
+function closeSettingsMenu(): void {
   document.body.classList.remove("sidebar-open");
 }
 
 // When DOM has loaded, initialize everything
-export function initializeSettingsAndTheme() {
+export function initializeSettingsAndTheme(): void {
   // Get elements
-  themeSwitch = document.getElementById("checkbox");
+  themeSwitch = document.getElementById("checkbox") as HTMLInputElement | null;
   settingsButton = document.querySelector(".settings-button");
-  settingsMenu = document.getElementById("settingsMenu");
   closeSidebarButton = document.querySelector(".close-sidebar-button");
   sidebarOverlay = document.getElementById("sidebarOverlay");
 

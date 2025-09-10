@@ -7,9 +7,9 @@ import "../styles/settings.css";
 import "../styles/sun-cycle-widget.css";
 
 // Import necessary modules and functions from the same directory
-import { renderCV } from "../scripts/cv-renderer.js";
-import { initializeSettingsAndTheme } from "../scripts/settings-handler.js";
-import { initSunCycleWidget } from "../scripts/sun-cycle-widget.js";
+import { renderCV } from "./cv-renderer";
+import { initializeSettingsAndTheme } from "./settings-handler";
+import { initSunCycleWidget } from "./sun-cycle-widget";
 
 // The function to initialize all event listeners and rendering
 function initApp(): void {

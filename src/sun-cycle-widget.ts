@@ -7,34 +7,48 @@ const DEFAULT_LOCATION_DATA = { lat: DEFAULT_LAT, lon: DEFAULT_LON };
 const sunCycleLoader = document.getElementById("sunCycleLoader");
 const sunCycleInfo = document.getElementById("sunCycleInfo");
 const sunCycleError = document.getElementById("sunCycleError");
-const sunCycleErrorText = sunCycleError.querySelector(".sun-cycle-error-text");
+const sunCycleErrorText = sunCycleError?.querySelector(".sun-cycle-error-text");
 
 // Showing function
-function showSunCycleLoader() {
-  sunCycleInfo.classList.add("hidden");
-  sunCycleError.classList.add("hidden");
-  sunCycleLoader.classList.remove("hidden");
+function showSunCycleLoader(): void {
+  sunCycleInfo?.classList.add("hidden");
+  sunCycleError?.classList.add("hidden");
+  sunCycleLoader?.classList.remove("hidden");
 }
 
-function hideSunCycleLoader() {
-  sunCycleLoader.classList.add("hidden");
+function hideSunCycleLoader(): void {
+  sunCycleLoader?.classList.add("hidden");
 }
 
-function showSunCycleInfo() {
-  sunCycleLoader.classList.add("hidden");
-  sunCycleError.classList.add("hidden");
-  sunCycleInfo.classList.remove("hidden");
+function showSunCycleInfo(): void {
+  sunCycleLoader?.classList.add("hidden");
+  sunCycleError?.classList.add("hidden");
+  sunCycleInfo?.classList.remove("hidden");
 }
 
-function showSunCycleError(message) {
-  sunCycleLoader.classList.add("hidden");
-  sunCycleInfo.classList.add("hidden");
-  sunCycleErrorText.textContent = message;
-  sunCycleError.classList.remove("hidden");
+function showSunCycleError(message: string): void {
+  sunCycleLoader?.classList.add("hidden");
+  sunCycleInfo?.classList.add("hidden");
+  if (sunCycleErrorText) {
+    sunCycleErrorText.textContent = message;
+  }
+  sunCycleError?.classList.remove("hidden");
+}
+
+interface SunriseSunsetResults {
+  sunrise: string;
+  sunset: string;
+  day_length: string;
+}
+
+interface SunriseSunsetData {
+  results: SunriseSunsetResults;
+  status?: string;
+  status_code?: number;
 }
 
 //Function for rendering sunrise/sunset data
-function renderSunriseSunset(data) {
+function renderSunriseSunset(data: SunriseSunsetData): void {
   if (!data || !data.results) {
     throw new Error("Incorrect data format received for rendering.");
   }
@@ -42,12 +56,13 @@ function renderSunriseSunset(data) {
   const { sunrise, sunset, day_length } = data.results;
 
   // Local data format
-  const formatTime = (isoTime) => {
+  const formatTime = (isoTime: string): string => {
     const date = new Date(isoTime);
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
-  sunCycleInfo.innerHTML = `
+  if (sunCycleInfo) {
+    sunCycleInfo.innerHTML = `
         <p><span class="label">Sunrise:</span> <span class="value">${formatTime(
           sunrise
         )}</span></p>
@@ -56,17 +71,20 @@ function renderSunriseSunset(data) {
         )}</span></p>
         <p><span class="label">Day:</span> <span class="value">${day_length}</span></p>
     `;
+  }
   showSunCycleInfo();
 }
 // Create promise function to resolve geolocation
-async function getUserGeolocationData() {
+async function getUserGeolocationData(): Promise<
+  { lat: number; lon: number } | undefined
+> {
   return new Promise((resolve) => {
     if (navigator.geolocation) {
-      const onError = (error) => {
+      const onError = (error: GeolocationPositionError) => {
         console.warn("Geolocation error:", error);
         resolve(undefined);
       };
-      const onSuccess = (position) => {
+      const onSuccess = (position: GeolocationPosition) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         resolve({ lat, lon });
@@ -79,22 +97,32 @@ async function getUserGeolocationData() {
   });
 }
 // Widget initialization function
-export async function initSunCycleWidget() {
+export async function initSunCycleWidget(): Promise<void> {
   showSunCycleLoader();
   try {
     const userLocationData = await getUserGeolocationData();
     const resovedLocationData = userLocationData || DEFAULT_LOCATION_DATA;
-    const data = await fetchSunriseSunsetData(resovedLocationData);
+    const data = await fetchSunriseSunsetData(
+      resovedLocationData.lat,
+      resovedLocationData.lon
+    );
     renderSunriseSunset(data);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Failed to load or render sunrise/sunset data:", error);
-    showSunCycleError(`Error: ${error.message}`);
+    if (error instanceof Error) {
+      showSunCycleError(`Error: ${error.message}`);
+    } else {
+      showSunCycleError("An unexpected error occurred.");
+    }
   } finally {
     hideSunCycleLoader();
   }
 }
 // Function to retrieve sunrise/sunset data from API
-async function fetchSunriseSunsetData(lat, lon) {
+async function fetchSunriseSunsetData(
+  lat: number,
+  lon: number
+): Promise<SunriseSunsetData> {
   const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&formatted=0`;
   const response = await fetch(url);
 
@@ -102,7 +130,7 @@ async function fetchSunriseSunsetData(lat, lon) {
     throw new Error(`Error HTTP: ${response.status}`);
   }
 
-  const data = await response.json();
+  const data: SunriseSunsetData = await response.json();
 
   if (data.status !== "OK") {
     throw new Error(`Error API: ${data.status} - ${data.status_code} || ''`);
