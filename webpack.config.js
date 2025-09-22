@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
     mode: argv.mode || "development",
 
     // Specifies which webpack file the project should start collecting from
-    entry: "./scripts/main.js",
+    entry: "./src/main.ts",
 
     // Output settings for the bundled files.
     output: {
@@ -25,6 +25,12 @@ module.exports = (env, argv) => {
     // 'source-map' for debugging in production mode (ensures code compliance).
     devtool: isProduction ? "source-map" : "eval-source-map",
 
+    //Adding extensions
+
+    resolve: {
+      extensions: [".ts", ".tsx", ".js", ".jsx"],
+    },
+
     //Plugins to extend webpack functionality
     plugins: [
       new HtmlWebpackPlugin({
@@ -37,6 +43,11 @@ module.exports = (env, argv) => {
     //Rules for handling different types of files
     module: {
       rules: [
+        {
+          test: /\.tsx?$/,
+          use: "ts-loader",
+          exclude: /node_modules/,
+        },
         {
           test: /\.css$/,
           use: ["style-loader", "css-loader"],

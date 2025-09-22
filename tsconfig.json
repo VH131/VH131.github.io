@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // JS output; better for browsers and tools than ES5
+    "module": "ESNext", // 'ESNext' for bundlers (Webpack/Vite)
+    "jsx": "react-jsx", // For React 17+/Vite
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src", // Optional: clarifies input src root
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node", // module finding (helps with asset/module resolution)
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true, // Allows to import JSON files
+    "noImplicitAny": true, // Catch more potential bugs
+    "allowSyntheticDefaultImports": true, // Asset and default import compatibility
+    "sourceMap": true, // Source maps for better debugging
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "include": [
+    "src/**/*",
+    "global.d.ts", // global asset/module declarations
+    "*.d.ts" // Catches any custom type declaration files
+  ],
+  "exclude": ["node_modules", "dist"]
+}

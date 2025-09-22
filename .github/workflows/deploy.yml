@@ -1,11 +1,12 @@
-# This is a GitHub Actions workflow for automatically deploying a website to GitHub Pages.
+# Name of the GitHub Actions workflow.
 name: Deploy to GitHub Pages
 
-# The workflow will be triggered on every push to the 'main' branch.
+# Controls when the workflow will run.
 on:
+  # Trigger the workflow on push events to the branch.
   push:
     branches:
-      - '*'
+      - "*"
 
 # Grant the necessary permissions for the workflow to deploy to GitHub Pages.
 permissions:
@@ -13,44 +14,50 @@ permissions:
   pages: write
   id-token: write
 
-# The workflow consists of a single job: build_and_deploy.
+# Defines the jobs that will be executed.
 jobs:
-  build_and_deploy:
+  # First job: responsible for building the project.
+  build:
+    # Specifies the runner environment.
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout the repository code.
+      # Step 1: Checks out your repository code, so the job can access it.
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Setup Node.js.
+      # Step 2: Sets up Node.js environment.
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          # Use Node.js version 20.
+          node-version: "20"
+          # Enable caching for Yarn to speed up dependency installation.
+          cache: "yarn"
 
-      # Step 3: Install dependencies using Yarn.
+      # Step 3: Installs project dependencies using Yarn.
       - name: Install dependencies
         run: yarn install
 
-      # Step 4: Run the build script using Yarn.
+      # Step 4: Runs the build script defined in package.json.
       - name: Build project
         run: yarn build
 
-      # Step 5: Configure GitHub Pages.
-      # This action is now separate from the deployment step.
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v4
-
-      # Step 6: Upload artifact.
-      # The artifact is the output of the build step, assumed to be in the 'dist' folder
+      # Step 5: Uploads the build output (from the './dist' directory) as an artifact.
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3 # Using a slightly older, but often more stable version
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: "./dist"
 
-      # Step 7: Deploy to GitHub Pages.
-      # This action will handle the final deployment of the uploaded artifact
+  # Second job: responsible for deploying the project to GitHub Pages.
+  deploy:
+    # This job will not start until the 'build' job has successfully completed.
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      # Step 1: Deploys the artifact uploaded in the 'build' job to GitHub Pages.
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
