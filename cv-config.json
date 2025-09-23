@@ -1,0 +1,99 @@
+{
+  "header": {
+    "title": "Volodymyr Husar CV",
+    "fullName": "Volodymyr Husar"
+  },
+  "footer": {
+    "copyYear": "2025",
+    "author": "Volodymyr Husar"
+  },
+  "aside": {
+    "sections": [
+      {
+        "type": "personInfo",
+        "data": {
+          "fullName": "Volodymyr Husar",
+          "title": "QA Engineer",
+          "imgSrc": "./images/Panda.jpg",
+          "imgAlt": "Volodymyr Husar's face"
+        }
+      },
+      {
+        "type": "personContacts",
+        "data": {
+          "email": {
+            "value": "vovagusar7@gmail.com",
+            "link": "mailto:vovagusar7@gmail.com",
+            "icon": "./images/email.svg"
+          },
+          "phone": {
+            "value": "+3806711111111",
+            "link": "tel:+380675867131",
+            "icon": "./images/phone.svg"
+          },
+          "linkedin": {
+            "value": "volodymyr-husar-3b39398a",
+            "link": "https://www.linkedin.com/in/volodymyr-husar-3b39398a/",
+            "icon": "./images/linkedin.svg"
+          }
+        }
+      }
+    ]
+  },
+  "main": {
+    "sections": [
+      {
+        "type": "textBlock",
+        "name": "Summary",
+        "data": {
+          "content": "A dedicated and detail-oriented QA Engineer with over 7 years of experience in software testing and quality assurance. Skilled in analyzing requirements, creating comprehensive test cases, and executing various types of tests to ensure software reliability and performance. Proven ability to work in fast-paced environments and collaborate effectively with development teams to identify and resolve defects. Committed to continuous learning and staying current with the latest testing tools and methodologies."
+        }
+      },
+      {
+        "type": "timeline",
+        "name": "Experience",
+        "data": {
+          "items": [
+            {
+              "title": "Brainstorm",
+              "duration": "04.2021 - 05.2022",
+              "details": [
+                "Analyzing requirements and create user stories;",
+                "Designing test cases/checklist",
+                "Analyzing customer issues;",
+                "API testing;",
+                "Test execution (smoke, regression, exploratory, GUI, performance, functional);",
+                "Analyzing incidents;",
+                "Collecting quality metrics"
+              ]
+            },
+            {
+              "title": "Citrix",
+              "duration": "09.2018 - 04.2021",
+              "details": [
+                "Documenting, writing requirements;",
+                "Creating Test Cases, Test Suits, Test Plan, Epics, Stories, Tasks;",
+                "Testing (GUI/exploratory/functional/regression);",
+                "Configuring different servers/environments (CPS/CVAD/View/Antivirus/SQL Servers);",
+                "Test execution (smoke, regression)"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "timeline",
+        "name": "Education",
+        "data": {
+          "items": [
+            {
+              "title": "Lviv Polytechnic National University",
+              "duration": "09.2003-09.2008",
+              "details": ["Computer engineering"]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
