@@ -1,5 +1,4 @@
-import { cvConfig } from "./cv-config";
-import type { CVSection } from "./cv-config";
+import type { CVConfig, CVSection } from "./cv-types";
 
 // Personal info rendering
 function renderPersonalInfoSection(
@@ -32,7 +31,7 @@ function renderPersonalContactsSection(
   for (const key in data) {
     const contact = data[key as keyof typeof data];
     const listItem = document.createElement("li");
-    listItem.innerHTML = `${key}: <a href="${contact.link}">${contact.value}</a> ${contact.icon}`;
+    listItem.innerHTML = `${key}: <a href="${contact.link}">${contact.value}</a> <img src="${contact.icon}" alt="${key} icon" />`;
     contactList.appendChild(listItem);
   }
   sectionEl.appendChild(contactList);
@@ -108,7 +107,6 @@ function renderSection(
   parentElement: HTMLElement,
   sectionConfig: CVSection
 ): void {
-  console.log("renderSection called for type:", sectionConfig.type);
   const renderFn = getRenderSectionFn(sectionConfig.type);
   if (renderFn) {
     renderFn(parentElement, sectionConfig);
@@ -117,14 +115,13 @@ function renderSection(
 
 //Multiple sections into parent element rendering
 function renderSections(parentEl: HTMLElement, sections: CVSection[]): void {
-  console.log("renderSections called with sections:", sections);
   sections.forEach((section) => renderSection(parentEl, section));
 }
 
 // Header rendering
 function renderHeader(
   headerEl: HTMLElement | null,
-  headerConfig: { title: string }
+  headerConfig: CVConfig["header"]
 ): void {
   if (!headerEl) return;
   const h1 = document.createElement("h1");
@@ -135,7 +132,7 @@ function renderHeader(
 // Aside column rendering
 function renderAside(
   asideEl: HTMLElement | null,
-  asideConfig: { sections: CVSection[] }
+  asideConfig: CVConfig["aside"]
 ): void {
   if (!asideEl) return;
   renderSections(asideEl, asideConfig.sections);
@@ -144,7 +141,7 @@ function renderAside(
 // Main column rendering
 function renderMain(
   mainEl: HTMLElement | null,
-  mainConfig: { sections: CVSection[] }
+  mainConfig: CVConfig["main"]
 ): void {
   if (!mainEl) return;
   renderSections(mainEl, mainConfig.sections);
@@ -153,25 +150,21 @@ function renderMain(
 // Footer rendering
 function renderFooter(
   footerEl: HTMLElement | null,
-  footerConfig: { copyYear: string; author: string }
+  footerConfig: CVConfig["footer"]
 ): void {
   if (!footerEl) return;
   footerEl.innerHTML = `<p>© ${footerConfig.copyYear} ${footerConfig.author}</p>`;
 }
 
 // Whole CV rendering based on config
-export function renderCV(): void {
+export function renderCV(cvConfig: CVConfig): void {
   const headerEl = document.querySelector("header") as HTMLElement;
   const asideEl = document.querySelector(".left-column") as HTMLElement;
   const mainEl = document.querySelector(".right-column") as HTMLElement;
   const footerEl = document.querySelector("footer") as HTMLElement;
 
-  console.log("Rendering header");
   renderHeader(headerEl, cvConfig.header);
-  console.log("Rendering aside");
   renderAside(asideEl, cvConfig.aside);
-  console.log("Rendering main");
   renderMain(mainEl, cvConfig.main);
-  console.log("Rendering footer");
   renderFooter(footerEl, cvConfig.footer);
 }
